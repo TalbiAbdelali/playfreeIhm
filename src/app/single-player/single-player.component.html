@@ -1,0 +1,16 @@
+<div class="player-info" [ngClass]="{snapped: buttonText==='Dislike'}">
+    <div class="player-details-card">
+        <a routerLink="/players">Back</a>
+        <h2>{{ player.pseudo | titlecase }}</h2>
+        <p>Email: {{ player.email }}</p>
+        <p>Phone: {{ player.phone }}</p>
+        <p>Soccer Level: {{ player.soccerLevel }}</p>
+        <p>Birthday : {{ player.birthday | date: 'd MMMM yyyy, à HH:mm' }}</p>
+    </div>
+    <div class="profile-photo">
+        <img *ngIf="player.imageUrl" [src]="player.imageUrl" [alt]="player.pseudo">
+        <div *ngIf="!player.imageUrl" class="no-photo-placeholder">No Photo Available</div>
+    </div>
+    <button (click)="onLike()">{{buttonText}}</button>
+    <span [ngStyle]="{color: 'rgb(0,'+ player.likes +',0)'}"> {{player.likes}} </span>
+</div>

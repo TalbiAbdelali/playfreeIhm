@@ -1,0 +1,31 @@
+.player-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    background-color: #f0f8ff; /* Light blue background */
+    padding: 20px;
+}
+
+.player-card {
+    background-color: #fff; /* White background */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for card */
+}
+
+.player-card img {
+    width: 100%;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.player-info {
+    padding: 10px;
+}
+
+.player-info h2 {
+    margin-top: 0;
+}
+
+.player-info p {
+    margin: 5px 0;
+}
