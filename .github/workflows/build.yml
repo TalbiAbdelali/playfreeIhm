@@ -1,0 +1,40 @@
+name: Build Angular v20 App
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout du code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js (v20 pour Angular 20)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Cache node_modules
+      uses: actions/cache@v4
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Installer les dépendances
+      run: npm ci
+
+    - name: Lint (facultatif mais recommandé)
+      run: npm run lint --if-present
+
+    - name: Build Angular app
+      run: npm run build --if-present
+
+    - name: Tester Angular app
+      run: npm run test -- --watch=false --browsers=ChromeHeadless --no-progress
