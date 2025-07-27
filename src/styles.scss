@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*
 * {
     font-family: Roboto, Helvetica, sans-serif;
   }
@@ -61,3 +63,9 @@
       box-shadow: lightgray 0 0 5px;
     }
   }
+*/
+
+//@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

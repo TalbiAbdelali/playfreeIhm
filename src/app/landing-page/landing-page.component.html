@@ -1,16 +1,33 @@
 <div class="landing-block">
-    
-    <div class="landing-links">
-      
-    </div>
+
+  <div class="landing-links">
+
+  </div>
 </div>
-<div class="container">
-  <div class="content">
-    <img src="assets/player1.png" alt="playFree logo">
-    <p class="bio">Join the Play Free project and experience the joy of soccer! We're dedicated to organizing free soccer matches for private and public events, parties, and gatherings. Whether you're a seasoned player or just starting out, there's a place for you in our community.</p>
-    <p class="bio">Get ready to kick off some fun!</p>
-    <div style="text-align: center;">
-      <button (click)="onContinue()" class="button">Continuer vers PlayFree</button>
+<div class="relative min-h-screen flex items-center justify-center" style="background: url('assets/player1.png') center/60% no-repeat; opacity: 0.95;">
+  <div class="absolute inset-0 bg-white bg-opacity-70"></div>
+  <div class="relative z-10 flex flex-col items-center justify-center w-full">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl py-16">
+      <!-- Players Card -->
+      <a routerLink="players" routerLinkActive="active" class="bg-gradient-to-r from-sky-400 to-blue-500 rounded-xl shadow-lg flex items-center justify-center h-40 cursor-pointer hover:scale-105 transition text-white text-2xl font-bold no-underline">
+        Players
+      </a>
+      <!-- Fields Card -->
+      <div class="bg-gradient-to-r from-sky-400 to-green-400 rounded-xl shadow-lg flex items-center justify-center h-40 cursor-pointer hover:scale-105 transition text-white text-2xl font-bold">
+        Fields
+      </div>
+      <!-- Teams Card -->
+      <div class="bg-gradient-to-r from-sky-400 to-purple-400 rounded-xl shadow-lg flex items-center justify-center h-40 cursor-pointer hover:scale-105 transition text-white text-2xl font-bold">
+        Teams
+      </div>
+      <!-- Parties Card -->
+      <div class="bg-gradient-to-r from-sky-400 to-pink-400 rounded-xl shadow-lg flex items-center justify-center h-40 cursor-pointer hover:scale-105 transition text-white text-2xl font-bold">
+        Parties
+      </div>
+      <!-- Tournaments Card (centered if alone) -->
+      <div class="bg-gradient-to-r from-sky-400 to-yellow-400 rounded-xl shadow-lg flex items-center justify-center h-40 cursor-pointer hover:scale-105 transition text-white text-2xl font-bold md:col-span-2 md:justify-self-center w-full md:w-1/2">
+        Tournaments
+      </div>
     </div>
   </div>
 </div>

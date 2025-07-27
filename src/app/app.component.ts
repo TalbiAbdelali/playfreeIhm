@@ -9,8 +9,7 @@ import { HeaderComponent } from './header/header.component';
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
-    PlayerListComponent,
+    RouterOutlet,
     HeaderComponent,
     CommonModule
   ],
