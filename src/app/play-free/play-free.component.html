@@ -1,35 +1,35 @@
-<!--div class="player-info" [ngClass]="{snapped: buttonText==='Dislike'}">
-    <div class="player-details-card">
-        <h2>{{ player.pseudo | titlecase }}</h2>
-        <div class="profile-photo">
-            
-        </div>
-        <p>Soccer Level: {{ player.soccerLevel }}</p>
-        
-        
-        
+<div class="player-card flex justify-center bg-white rounded-2xl shadow-xl flex flex-col items-center p-6 w-full max-w-xs border border-gray-100">
+    <div class="w-28 h-28 rounded-full overflow-hidden border-4 border-sky-400 shadow mb-4 bg-sky-50 flex items-center justify-center">
+      <img *ngIf="player.imageUrl" [src]="player.imageUrl" [alt]="player.pseudo" class="object-cover w-full h-full">
+      <div *ngIf="!player.imageUrl" class="no-photo-placeholder text-gray-400 text-sm">No Photo</div>
     </div>
-    
-</div-->
-
-<div class="player-list">
-    <div class="player-card">
-        <img *ngIf="player.imageUrl" [src]="player.imageUrl" [alt]="player.pseudo">
-        <div *ngIf="!player.imageUrl" class="no-photo-placeholder">No Photo Available</div>
-        <div class="player-info">
-            <h2>{{ player.pseudo | titlecase }}</h2>
-            <p>Position: Forward</p>
-            <p>Age: 25</p>
-            <p>Nationality: Spain</p>
-            <p>Soccer Level: {{ player.soccerLevel }}</p>
-            <p>Likes: {{player.likes}}</p>
-            <button (click)="onViewPlayer()">VIEW</button>
+    <div class="player-info text-center">
+      <h2 class="text-xl font-bold text-sky-700 mb-1">{{ player.pseudo | titlecase }}</h2>
+      <div class="flex justify-center items-center gap-2 mb-2">
+        <span *ngIf="player.availability" class="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-semibold">Available</span>
+        <span *ngIf="!player.availability" class="inline-block bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-semibold">Unavailable</span>
+      </div>
+      <div class="flex justify-center gap-4 mb-2">
+        <div class="flex flex-col items-center">
+          <span class="text-xs text-gray-500">Level</span>
+          <span class="font-semibold text-gray-700">{{ player.soccerLevel }}</span>
         </div>
+        <div class="flex flex-col items-center">
+          <span class="text-xs text-gray-500">Likes</span>
+          <span class="font-semibold text-sky-600">{{ player.likes }}</span>
+        </div>
+      </div>
+      <button (click)="onViewPlayer()" class="mt-2 px-6 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-semibold shadow transition">Voir Profil</button>
     </div>
-</div>
+    <div class="mt-6 flex justify-center gap-2">
+      <span class="inline-flex items-center px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-medium">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2h5"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Futsal Passion
+      </span>
+      <span class="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+        Match Ready
+      </span>
+    </div>
+  </div>
 
-<!--
-        <p>{{ 2034536.26 | number: '1.0-1' }}</p>
-        <p>{{ 0.336 | percent: '1.0-1' }}</p>
-        <p>{{ 344.36 | currency: 'EUR' : 'code' }}</p>
-        -->

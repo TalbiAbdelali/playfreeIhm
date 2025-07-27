@@ -41,4 +41,41 @@ export class SinglePlayerComponent {
     }
     
   }
+
+  // ...dans la classe SinglePlayerComponent...
+  getRadarPoints(perf: any): string {
+    // Défense, Attaque, Créativité, Tactique, Technique (dans cet ordre)
+    const max = 100;
+    const center = { x: 100, y: 100 };
+    const radius = 70;
+    const angles = [270, 342, 54, 126, 198]; // degrés pour chaque axe
+    const values = [
+      perf?.defense ?? 0,
+      perf?.attack ?? 0,
+      perf?.creativity ?? 0,
+      perf?.tactics ?? 0,
+      perf?.technique ?? 0
+    ];
+    return values.map((v, i) => {
+      const angle = angles[i] * Math.PI / 180;
+      const r = radius * (v / max);
+      const x = center.x + r * Math.cos(angle);
+      const y = center.y + r * Math.sin(angle);
+      return `${x},${y}`;
+    }).join(' ');
+  }
+
+  getRadarAxisPoints() {
+    const max = 100;
+    const center = { x: 100, y: 100 };
+    const radius = 70;
+    const angles = [270, 342, 54, 126, 198];
+    return angles.map(a => {
+      const angle = a * Math.PI / 180;
+      return {
+        x: center.x + radius * Math.cos(angle),
+        y: center.y + radius * Math.sin(angle)
+      };
+    });
+  }
 }

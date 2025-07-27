@@ -29,5 +29,11 @@ export class PlayFreeComponent implements OnInit{
     this.router.navigateByUrl(`players/${this.player.id}`);
   }
 
+  getPlayerAge(player: Player): string | number {
+    if (!player.birthday) return '-';
+    const birthYear = new Date(player.birthday).getFullYear();
+    return 2024 - birthYear;
+  }
+
 
 }

@@ -1,16 +1,118 @@
-<div class="player-info" [ngClass]="{snapped: buttonText==='Dislike'}">
-    <div class="player-details-card">
-        <a routerLink="/players">Back</a>
-        <h2>{{ player.pseudo | titlecase }}</h2>
-        <p>Email: {{ player.email }}</p>
-        <p>Phone: {{ player.phone }}</p>
-        <p>Soccer Level: {{ player.soccerLevel }}</p>
-        <p>Birthday : {{ player.birthday | date: 'd MMMM yyyy, à HH:mm' }}</p>
+<div class="flex flex-col md:flex-row gap-8 p-6 bg-gray-50 rounded-2xl shadow-xl max-w-5xl mx-auto">
+  <a routerLink="/players" class="mb-4 self-start inline-flex items-center px-4 py-2 bg-sky-100 hover:bg-sky-200 text-sky-700 rounded-full font-semibold shadow transition">
+    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7"></path></svg>
+    Retour à la liste
+  </a>
+  <!-- Profile Card -->
+  <div class="flex flex-col items-center bg-white rounded-xl shadow p-6 w-full md:w-1/3">
+    <div class="w-32 h-32 rounded-full overflow-hidden border-4 border-sky-400 shadow mb-4 bg-sky-50 flex items-center justify-center">
+      <img *ngIf="player.imageUrl" [src]="player.imageUrl" [alt]="player.pseudo" class="object-cover w-full h-full">
+      <div *ngIf="!player.imageUrl" class="no-photo-placeholder text-gray-400 text-sm">No Photo</div>
     </div>
-    <div class="profile-photo">
-        <img *ngIf="player.imageUrl" [src]="player.imageUrl" [alt]="player.pseudo">
-        <div *ngIf="!player.imageUrl" class="no-photo-placeholder">No Photo Available</div>
+    <h2 class="text-2xl font-bold text-sky-700 mb-2">{{ player.pseudo | titlecase }}</h2>
+    <div class="text-center mb-2">
+      <span class="inline-block bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full font-semibold" *ngIf="player.availability">Available</span>
+      <span class="inline-block bg-red-100 text-red-700 text-xs px-2 py-1 rounded-full font-semibold" *ngIf="!player.availability">Unavailable</span>
     </div>
-    <button (click)="onLike()">{{buttonText}}</button>
-    <span [ngStyle]="{color: 'rgb(0,'+ player.likes +',0)'}"> {{player.likes}} </span>
+    <div class="flex flex-col gap-1 text-sm text-gray-600 mb-4">
+      <span>Email: <span class="font-semibold text-gray-800">{{ player.email }}</span></span>
+      <span>Phone: <span class="font-semibold text-gray-800">{{ player.phone }}</span></span>
+      <span>Soccer Level: <span class="font-semibold text-gray-800">{{ player.soccerLevel }}</span></span>
+      <span>Birthday: <span class="font-semibold text-gray-800">{{ player.birthday | date: 'd MMMM yyyy' }}</span></span>
+    </div>
+    <button (click)="onLike()" class="mt-2 px-6 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-full font-semibold shadow transition">{{buttonText}}</button>
+    <span class="mt-2 font-bold text-sky-700 text-lg">👍 {{player.likes}}</span>
+  </div>
+
+  <!-- Main Info Sections -->
+  <div class="flex-1 flex flex-col gap-6">
+    <!-- Football Field & Stats -->
+    <div class="bg-white rounded-xl shadow p-4 flex flex-col md:flex-row gap-4 items-center">
+      <div class="relative w-56 h-36 bg-green-200 rounded-lg flex-shrink-0 flex items-center justify-center">
+        <!-- Simple football field SVG -->
+        <svg viewBox="0 0 224 144" class="absolute inset-0 w-full h-full">
+          <rect x="0" y="0" width="224" height="144" rx="16" fill="#bbf7d0"/>
+          <rect x="0" y="0" width="224" height="144" rx="16" fill="none" stroke="#059669" stroke-width="4"/>
+          <line x1="112" y1="0" x2="112" y2="144" stroke="#059669" stroke-width="2"/>
+          <ellipse cx="112" cy="72" rx="18" ry="18" fill="none" stroke="#059669" stroke-width="2"/>
+          <!-- Player position marker -->
+          <circle 
+            [attr.cx]="player.positionX || 112" 
+            [attr.cy]="player.positionY || 72" 
+            r="8" fill="#0ea5e9" stroke="#0369a1" stroke-width="2"/>
+        </svg>
+        <span class="absolute bottom-2 left-2 bg-white/80 text-xs px-2 py-1 rounded font-semibold text-sky-700">
+          {{ player.position || 'Position inconnue' }}
+        </span>
+      </div>
+      <div class="flex-1 flex flex-col gap-2">
+        <div class="flex flex-wrap gap-2">
+          <span class="bg-sky-100 text-sky-700 px-2 py-1 rounded text-xs font-semibold">Matches: {{ player.stats.matches }}</span>
+          <span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded text-xs font-semibold">Goals: {{ player.stats.goals }}</span>
+          <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded text-xs font-semibold">Assists: {{ player.stats.assists }}</span>
+          <span class="bg-red-100 text-red-700 px-2 py-1 rounded text-xs font-semibold">Cards: {{ player.stats.cards }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Radar Chart (Pentagon) for Performance -->
+    <div class="bg-white rounded-xl shadow p-4 flex flex-col items-center">
+      <h3 class="text-lg font-bold text-sky-700 mb-2">Performance Radar</h3>
+      <div class="relative w-48 h-48 flex items-center justify-center">
+        <!-- Simple SVG pentagon radar chart -->
+        <svg viewBox="0 0 200 200" class="w-full h-full">
+          <polygon points="100,30 176,76 150,162 50,162 24,76" fill="#bae6fd" stroke="#0ea5e9" stroke-width="2"/>
+          <!-- Player performance polygon -->
+          <polygon 
+            [attr.points]="getRadarPoints(player.performance)" 
+            fill="#0ea5e9cc" stroke="#0369a1" stroke-width="2"/>
+          <!-- Dots for each axis -->
+          <circle *ngFor="let pt of getRadarAxisPoints()" [attr.cx]="pt.x" [attr.cy]="pt.y" r="4" fill="#0369a1"/>
+        </svg>
+        <div class="absolute top-2 left-1/2 -translate-x-1/2 text-xs font-semibold text-sky-700">Défense</div>
+        <div class="absolute right-2 top-16 text-xs font-semibold text-sky-700">Attaque</div>
+        <div class="absolute right-8 bottom-6 text-xs font-semibold text-sky-700">Créativité</div>
+        <div class="absolute left-8 bottom-6 text-xs font-semibold text-sky-700">Tactique</div>
+        <div class="absolute left-2 top-16 text-xs font-semibold text-sky-700">Technique</div>
+      </div>
+      <div class="flex justify-center gap-4 mt-2 text-xs">
+        <span>Défense: {{ player.performance.defense }}</span>
+        <span>Attaque: {{ player.performance.attack }}</span>
+        <span>Créativité: {{ player.performance.creativity }}</span>
+        <span>Tactique: {{ player.performance.tactics }}</span>
+        <span>Technique: {{ player.performance.technique }}</span>
+      </div>
+    </div>
+
+    <!-- Last 5 Match Scores -->
+    <div class="bg-white rounded-xl shadow p-4">
+      <h3 class="text-lg font-bold text-sky-700 mb-2">5 Derniers Scores</h3>
+      <div class="flex gap-3">
+        <ng-container *ngFor="let score of player.lastScores?.slice(0,5)">
+          <div class="flex flex-col items-center">
+            <span class="text-2xl font-bold text-emerald-600">{{ score }}</span>
+            <span class="text-xs text-gray-500">Match</span>
+          </div>
+        </ng-container>
+        <span *ngIf="!player.lastScores || player.lastScores.length === 0" class="text-gray-400">Aucun score disponible</span>
+      </div>
+    </div>
+
+    <!-- Player Reviews Section -->
+    <div class="bg-white rounded-xl shadow p-4">
+      <h3 class="text-lg font-bold text-sky-700 mb-2">Avis sur le joueur</h3>
+      <div *ngIf="player.reviews && player.reviews.length > 0; else noReviews">
+        <div *ngFor="let review of player.reviews" class="mb-2 border-b border-gray-100 pb-2">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-semibold text-sky-600">{{ review.author }}</span>
+            <span class="text-xs text-yellow-500">★ {{ review.rating }}/5</span>
+          </div>
+          <div class="text-gray-700 text-sm">{{ review.comment }}</div>
+        </div>
+      </div>
+      <ng-template #noReviews>
+        <div class="text-gray-400 text-sm">Aucun avis pour ce joueur.</div>
+      </ng-template>
+    </div>
+  </div>
 </div>
