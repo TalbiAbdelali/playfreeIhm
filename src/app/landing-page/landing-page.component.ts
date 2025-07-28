@@ -16,8 +16,6 @@ export class LandingPageComponent {
 
   }
 
-  onContinue() {
-    this.router.navigateByUrl('players');
-  }
+  
 
 }
