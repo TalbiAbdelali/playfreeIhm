@@ -1,0 +1,41 @@
+<!-- Grille de cartes à deux colonnes -->
+<div class="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-6">
+  <div class="col-span-1 md:col-span-2 flex justify-start mb-2 mt-4">
+    <!-- Bouton pour revenir à la landing page -->
+    <button (click)="goToLandingPage()" 
+            class="flex items-center gap-2 px-5 py-2 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full shadow hover:from-blue-600 hover:to-blue-800 transition font-semibold text-base">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+      </svg>
+      Retour à la page d'accueil
+    </button>
+  </div>
+  <div *ngFor="let field of fields" 
+       class="rounded-xl overflow-hidden shadow-lg bg-white border-none relative hover:scale-[1.03] transition-transform">
+    <img [src]="field.imageUrl" alt="Photo du terrain" class="w-full h-44 object-cover">
+    <div class="p-5">
+      <h3 class="mb-2 text-xl font-semibold">{{ field.name }}</h3>
+      <span 
+        [ngClass]="field.availability ? 'bg-green-500' : 'bg-red-500'"
+        class="text-white px-3 py-1 rounded-full text-sm absolute top-3 right-3">
+        {{ field.availability ? 'Disponible' : 'Indisponible' }}
+      </span>
+      <p class="mt-2 text-gray-700 flex items-center">
+        <span class="mr-2">📍</span>
+        <strong>{{ field.location }}</strong>
+      </p>
+      <p class="mt-2 text-gray-700 flex items-center">
+        <span class="mr-2">💶</span>
+        <strong>{{ field.pricePerHour }} € / heure</strong>
+      </p>
+      <p class="mt-3 text-gray-500 text-base">
+        {{ field.description }}
+      </p>
+      <button (click)="reserveField(field)" 
+              [disabled]="!field.availability"
+              class="mt-5 w-full bg-blue-600 text-white rounded-lg py-2 text-base font-medium transition-colors duration-200 hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed">
+        Réserver
+      </button>
+    </div>
+  </div>
+</div>
