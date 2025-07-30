@@ -1,0 +1,36 @@
+<div class="max-w-7xl mx-auto px-4 py-8">
+  <button
+    class="flex items-center gap-2 mb-8 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full shadow transition font-semibold"
+    (click)="goBack()"
+    type="button"
+  >
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+    Retour à la landing page
+  </button>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div *ngFor="let team of teams" class="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition p-6 flex flex-col items-center relative">
+      <div class="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4 shadow">
+        <img [src]="'https://api.dicebear.com/7.x/shapes/svg?seed=' + team.name" alt="Logo du team" class="w-20 h-20 object-contain rounded-full" />
+      </div>
+      <h3 class="text-xl font-bold mb-2 text-center">{{ team.name }}</h3>
+      <div class="flex items-center mb-3">
+        <img [src]="'https://api.dicebear.com/7.x/thumbs/svg?seed=' + team.coach" alt="Coach" class="w-10 h-10 rounded-full border-2 border-indigo-400 shadow mr-2" />
+        <span class="font-semibold text-gray-700">Coach : {{ team.coach }}</span>
+      </div>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">
+          {{ team.generalLevel }}
+        </span>
+        <span class="px-3 py-1 rounded-full text-xs font-semibold"
+          [ngClass]="team.availability ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'">
+          {{ team.availability ? 'Disponible' : 'Indisponible' }}
+        </span>
+      </div>
+      <button class="mt-auto w-full py-2 rounded-lg bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+        Contacter l'équipe
+      </button>
+    </div>
+  </div>
+</div>
