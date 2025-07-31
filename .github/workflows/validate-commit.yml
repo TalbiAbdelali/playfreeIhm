@@ -21,7 +21,7 @@ jobs:
           echo "$COMMITS"
           echo "$COMMITS" | while read line; do
             if ! echo "$line" | grep -qE '^FF:'; then
-              echo "::error::Le message de commit '$line' ne commence pas par FF:XXXXXX"
+              echo "::error::Le message de commit '$line' ne commence pas par FF:"
               exit 1
             fi
           done
