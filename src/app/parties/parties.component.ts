@@ -30,6 +30,12 @@ export class PartiesComponent implements OnInit {
     if (party.date && this.today && party.date < this.today) {
       return 'opacity-50 grayscale pointer-events-none';
     }
+    if (party.date && this.today && party.date === this.today) {
+      return ''; // Border for in progress
+    }
+    if (party.date && this.today && party.date > this.today) {
+      return 'animate-upcoming';
+    }
     return '';
   }
 }

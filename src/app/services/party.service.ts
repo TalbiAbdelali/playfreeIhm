@@ -53,7 +53,7 @@ export class PartyService {
     },
     {
       id: 5,
-      date: '2024-07-20',
+      date: '2025-11-20',
       hour: '21:00',
       duration: 60,
       location: 'North Stadium',
@@ -64,7 +64,7 @@ export class PartyService {
     },
     {
       id: 6,
-      date: '2024-07-22',
+      date: '2025-08-22',
       hour: '16:00',
       duration: 75,
       location: 'South Arena',
@@ -76,7 +76,7 @@ export class PartyService {
     // Ongoing parties (today)
     {
       id: 7,
-      date: '2024-06-09',
+      date: '2025-07-31',
       hour: '10:00',
       duration: 120,
       location: 'Central Park',
@@ -87,7 +87,7 @@ export class PartyService {
     },
     {
       id: 8,
-      date: '2025-09-09',
+      date: '2025-07-31',
       hour: '14:00',
       duration: 90,
       location: 'Downtown Arena',
@@ -110,7 +110,7 @@ export class PartyService {
     },
     {
       id: 10,
-      date: '2025-08-28',
+      date: '2024-08-28',
       hour: '20:00',
       duration: 90,
       location: 'East Field',
