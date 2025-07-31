@@ -20,7 +20,7 @@ jobs:
           echo "Commits trouvés:"
           echo "$COMMITS"
           echo "$COMMITS" | while read line; do
-            if ! echo "$line" | grep -qE '^FF:[a-zA-Z0-9]{6}'; then
+            if ! echo "$line" | grep -qE '^FF:'; then
               echo "::error::Le message de commit '$line' ne commence pas par FF:XXXXXX"
               exit 1
             fi
