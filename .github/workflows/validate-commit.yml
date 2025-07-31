@@ -10,7 +10,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
+      - name: Fetch main branch (optional, if above doesn't work)
+        run: git fetch origin main:refs/remotes/origin/main
       - name: Vérifier chaque message de commit
         run: |
           COMMITS=$(git log origin/${{ github.event.pull_request.base.ref }}..HEAD --pretty=format:"%s")
