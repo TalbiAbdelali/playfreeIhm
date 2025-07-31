@@ -1,0 +1,31 @@
+@keyframes inprogress {
+  0% { opacity: 1; letter-spacing: 0.05em; }
+  50% { opacity: 0.6; letter-spacing: 0.15em; }
+  100% { opacity: 1; letter-spacing: 0.05em; }
+}
+
+.animate-inprogress {
+  animation: inprogress 1.2s infinite;
+}
+
+@keyframes borderPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.5), 0 0 0 2px #22c55e;
+    border-color: #22c55e;
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(34,197,94,0.2), 0 0 0 2px #22c55e;
+    border-color: #16a34a;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.5), 0 0 0 2px #22c55e;
+    border-color: #22c55e;
+  }
+}
+
+.animated-inprogress-border {
+  animation: borderPulse 1.2s infinite;
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: #22c55e !important;
+}
