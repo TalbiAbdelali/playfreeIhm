@@ -1,0 +1,24 @@
+name: Vérifie les messages de commit
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  validate-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Vérifier chaque message de commit
+        run: |
+          COMMITS=$(git log origin/${{ github.event.pull_request.base.ref }}..HEAD --pretty=format:"%s")
+          echo "Commits trouvés:"
+          echo "$COMMITS"
+          echo "$COMMITS" | while read line; do
+            if ! echo "$line" | grep -qE '^FF:[a-zA-Z0-9]{6}'; then
+              echo "::error::Le message de commit '$line' ne commence pas par FF:XXXXXX"
+              exit 1
+            fi
+          done
