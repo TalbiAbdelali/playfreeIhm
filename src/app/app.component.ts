@@ -4,6 +4,7 @@ import { PlayFreeComponent } from './play-free/play-free.component';
 import { PlayerListComponent } from './player-list/player-list.component';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-root',
