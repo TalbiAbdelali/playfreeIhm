@@ -1,0 +1,31 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-400">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+    <div class="flex justify-center mb-6">
+      <img src="assets/player1.png" alt="Logo" class="h-16 w-16 rounded-full shadow-md" />
+    </div>
+    <div class="flex justify-center mb-6">
+      <button (click)="switchMode('login')" [ngClass]="{'bg-blue-500 text-white': mode==='login', 'bg-gray-200': mode!=='login'}" class="px-4 py-2 rounded-l">Log In</button>
+      <button (click)="switchMode('signup')" [ngClass]="{'bg-blue-500 text-white': mode==='signup', 'bg-gray-200': mode!=='signup'}" class="px-4 py-2 rounded-r">Sign Up</button>
+    </div>
+    <form (ngSubmit)="onSubmit()" #authForm="ngForm" autocomplete="off">
+      <div class="mb-4">
+        <label class="block text-gray-700">Email</label>
+        <input type="email" name="email" [(ngModel)]="email" required class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Password</label>
+        <input type="password" name="password" [(ngModel)]="password" required class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+      <div *ngIf="mode==='signup'" class="mb-4">
+        <label class="block text-gray-700">Role</label>
+        <select name="role" [(ngModel)]="role" required class="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+          <option value="viewer">Viewer</option>
+        </select>
+      </div>
+      <div *ngIf="error" class="mb-4 text-red-500 text-center">{{ error }}</div>
+      <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">{{ mode==='login' ? 'Log In' : 'Sign Up' }}</button>
+    </form>
+  </div>
+</div>
